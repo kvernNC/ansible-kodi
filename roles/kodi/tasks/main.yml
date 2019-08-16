@@ -30,6 +30,7 @@
     enabled: yes
     daemon_reload: yes
   become: yes
+# https://kwartix.wordpress.com/2019/05/13/netflix-raspberry-et-kodi/ 
 - name: Download additional plugins to /home/pi/
   get_url:
     url: "{{item}}"
