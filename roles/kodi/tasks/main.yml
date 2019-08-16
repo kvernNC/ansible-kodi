@@ -3,7 +3,7 @@
   apt_key:
     url: http://pipplware.pplware.pt/pipplware/key.asc
     state: present
-- name:  Add repo for rapsbian buster custom build of lastest kodi
+- name:  Add repo for raspbian buster custom build of lastest kodi
   apt_repository:
     repo: deb http://pipplware.pplware.pt/pipplware/dists/buster/main/binary /
     state: present
@@ -28,13 +28,17 @@
   systemd:
     name: kodi
     enabled: yes
-    state: started
     daemon_reload: yes
   become: yes
 - name: Download additional plugins to /home/pi/
   get_url:
-    url:
-      - https://github.com/castagnait/repository.castagnait/raw/master/repository.castagnait-1.0.0.zip
-      - http://dev.grantgarrison.com/projects/script.parsec.zip
-      - https://github.com/wackerl91/luna/releases/download/v0.7.0-rc7/script.luna-0.7.0-rc7.zip
+    url: "{{item}}"
     dest: /home/pi/
+  with_items:
+    - "https://github.com/castagnait/repository.castagnait/raw/master/repository.castagnait-1.0.0.zip"
+    - "http://dev.grantgarrison.com/projects/script.parsec.zip"
+    - "https://github.com/wackerl91/luna/releases/download/v0.7.0-rc7/script.luna-0.7.0-rc7.zip"
+- name: reboot raspberri pi
+  shell: sleep 5s && sudo /sbin/shutdown -r now
+  async: 1
+  poll: 0
