@@ -1,8 +1,10 @@
 - name: We are setting our new hostname.
   hostname: name={{ hostname }}
 - name: Install the basics
-  apt: pkg={{ item }}
-  with_items:
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
     - avahi-daemon
     - netatalk
     - tmux
@@ -15,6 +17,18 @@
     - rpi-update
     - python-apt
     - python3-apt
+    - python-pip
+    - python-crypto
+    - build-essential
+    - python-all-dev
+    - python-setuptools
+    - python-wheel
+    - python-crypto-dbg
+    - python-crypto-doc
+    - python-pip-whl
+- name: install dependencies python dependencies for netflix
+  pip:
+    name: pycryptodomex
 - name: ensure avahi-daemon is running (and enable it at boot)
   service: name=avahi-daemon state=started enabled=yes
 - name: ensure netatalk is running (and enable it at boot)
