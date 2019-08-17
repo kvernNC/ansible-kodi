@@ -7,16 +7,15 @@
   apt_repository:
     repo: deb http://pipplware.pplware.pt/pipplware/dists/buster/main/binary /
     state: present
-- name: Upgrade all packages to the latest version
+- name: Install kodi and my choosen dependencies (i have no need for pvr but there are available on the repositories)
   apt:
-    name: "*"
-    state: latest
-- name: Update all packages to the latest version
-  apt:
-    upgrade: dist
-- name: Install kodi and all dependencies
-  apt:
-    name: kodi
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - kodi
+      - kodi-audiodecoder-*
+      - kodi-inputstream-adaptive
+      - kodi-peripheral-joystick
 - name: copy systemd kodi standalone service script
   copy:
     src: "{{role_path}}/files/kodi.service"
@@ -39,6 +38,7 @@
     - "http://dev.grantgarrison.com/projects/script.parsec.zip"
     - "https://github.com/wackerl91/luna/releases/download/v0.7.0-rc7/script.luna-0.7.0-rc7.zip"
 - name: reboot raspberri pi
-  shell: sleep 5s && sudo /sbin/shutdown -r now
+  shell: sleep 5s && /sbin/shutdown -r now
   async: 1
   poll: 0
+  become: true

@@ -1,5 +1,6 @@
 - name: We are setting our new hostname.
-  hostname: name={{ hostname }}
+  hostname:
+    name: "{{ hostname }}"
 - name: Install the basics
   apt:
     name: "{{ packages }}"
@@ -72,11 +73,12 @@
   with_items:
     - { regexp: '^ntpd ', line: 'ntpd -gq' }
 - name: reboot raspberri pi
-  shell: sleep 5s && sudo /sbin/shutdown -r now
+  shell: sleep 5s && /sbin/shutdown -r now
   async: 1
   poll: 0
   ignore_errors: true
+  become: true
 - name: waiting for raspberry pi to come back
   local_action: wait_for port=22 host="{{ ansible_ssh_host | default(inventory_hostname) }}" delay=10
                 state=started
-  sudo: false
+  become: false

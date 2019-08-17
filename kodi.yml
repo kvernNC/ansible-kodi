@@ -1,11 +1,14 @@
 - hosts: kodi
   vars_files:
     - secrets.yml
+  become: True
   pre_tasks:
-    - name: update apt packages
-      apt:  update_cache=yes cache_valid_time=3600
-      sudo: True
+    - name: Upgrade all packages to the latest version
+      apt:
+        name: "*"
+        state: latest
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
   roles:
-     - { role: kodi,
-         hostname: 'kodi',
-         sudo: yes }
+     - kodi

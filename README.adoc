@@ -1,22 +1,24 @@
-== Ansible script to setup the the latest Kodi/XBMC on a Raspberry Pi 2 from OSX
-.This tutorial/ansible script provisions a Raspberry Pi with the latest Kodi/XBMC and pvr.iptvsimple.
+== Ansible script to setup the the latest Kodi/XBMC on a Raspberry Pi 3 from linux
+.This tutorial/ansible script provisions a Raspberry Pi with the latest Kodi/XBMC.
 
 For the provisioning script to work you need Ansible.  See DEPENDENCIES.adoc.
 The whole procedure of setting up the Raspberry Pi SD card plus provisioning
-the Raspberry Pi takes about 3 hours with a reasonably fast SD card. 
+the Raspberry Pi takes about 3 hours with a reasonably fast SD card.
 The procedure may fail with an 8 GB SD card.  A 16 GB SD Card is recommended.
 
 .The procedure has only been tested with:
-* A Raspberry Pi 2
-* Ansible 1.9.4 running on OSX El Capitan
-* Raspbian Jessie (2015-11-21-raspbian-jessie.img to be exact)
+* A Raspberry Pi 3b+
+* Ansible 2.8.3 running on solus
+* Raspbian buster (2019-07-10-raspbian-buster-lite to be exact)
 
-The procedure was last tested on December 12, 2015 successfully.
+The procedure was last tested on August 17, 2019 successfully.
+
+It was forked from yencarnacion repository, as I found is script the way I would have done it from scratch, so thanks to him.
 
 === License
 The MIT License (MIT).  See LICENSE.adoc
 
-=== Procedure 
+=== Procedure
 
 * Get the Raspbian image from https://www.raspberrypi.org/downloads/raspbian/
 
@@ -35,7 +37,11 @@ The MIT License (MIT).  See LICENSE.adoc
 ----
    $ sudo dd bs=1m if=image.img of=/dev/disk<disk# from diskutil>
 ----
-  - After the `dd` command finishes, eject the card
+     - After the `dd` commmand, go to boot partition and add a void ssh file
+----
+      $ sudo touch ssh
+----
+    - Eject the card
 ----
    $ sudo diskutil eject /dev/disk<disk# from diskutil>
 ----
