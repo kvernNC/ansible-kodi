@@ -13,7 +13,7 @@ The procedure may fail with an 8 GB SD card.  A 16 GB SD Card is recommended.
 
 The procedure was last tested on August 17, 2019 successfully.
 
-It was forked from yencarnacion repository, as I found is script the way I would have done it from scratch, so thanks to him.
+It was forked from yencarnacion repository, as I found his script the way I would have done it from scratch, so thanks to him.
 
 === License
 The MIT License (MIT).  See LICENSE.adoc
