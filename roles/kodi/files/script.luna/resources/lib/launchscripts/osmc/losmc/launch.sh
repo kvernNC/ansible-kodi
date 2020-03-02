@@ -1,0 +1,1 @@
+/home/pi/.kodi/addons/script.luna/resources/lib/launchscripts/osmc/launch.sh
